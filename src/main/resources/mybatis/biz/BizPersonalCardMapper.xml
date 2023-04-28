@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.biz.mapper.BizPersonalCardMapper">
+
+    <resultMap type="BizPersonalCard" id="BizPersonalCardResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="name"    column="name"    />
+        <result property="position"    column="position"    />
+        <result property="telephone"    column="telephone"    />
+        <result property="mail"    column="mail"    />
+        <result property="wechatAccount"    column="wechat_account"    />
+        <result property="companyAddr"    column="company_addr"    />
+        <result property="qrCode"    column="qr_code"    />
+        <result property="remark"    column="remark"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectBizPersonalCardVo">
+        select id, create_time, create_by, update_time, update_by, name, position, telephone, mail, wechat_account, company_addr, qr_code, remark, status, del_flag from biz_personal_card
+    </sql>
+
+    <select id="selectBizPersonalCardList" parameterType="BizPersonalCard" resultMap="BizPersonalCardResult">
+        <include refid="selectBizPersonalCardVo"/>
+        <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="position != null  and position != ''"> and position = #{position}</if>
+            <if test="telephone != null  and telephone != ''"> and telephone = #{telephone}</if>
+            <if test="mail != null  and mail != ''"> and mail = #{mail}</if>
+            <if test="wechatAccount != null  and wechatAccount != ''"> and wechat_account = #{wechatAccount}</if>
+            <if test="companyAddr != null  and companyAddr != ''"> and company_addr = #{companyAddr}</if>
+            <if test="qrCode != null  and qrCode != ''"> and qr_code = #{qrCode}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectBizPersonalCardById" parameterType="Long" resultMap="BizPersonalCardResult">
+        <include refid="selectBizPersonalCardVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertBizPersonalCard" parameterType="BizPersonalCard" useGeneratedKeys="true" keyProperty="id">
+        insert into biz_personal_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="position != null and position != ''">position,</if>
+            <if test="telephone != null and telephone != ''">telephone,</if>
+            <if test="mail != null and mail != ''">mail,</if>
+            <if test="wechatAccount != null and wechatAccount != ''">wechat_account,</if>
+            <if test="companyAddr != null and companyAddr != ''">company_addr,</if>
+            <if test="qrCode != null and qrCode != ''">qr_code,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="position != null and position != ''">#{position},</if>
+            <if test="telephone != null and telephone != ''">#{telephone},</if>
+            <if test="mail != null and mail != ''">#{mail},</if>
+            <if test="wechatAccount != null and wechatAccount != ''">#{wechatAccount},</if>
+            <if test="companyAddr != null and companyAddr != ''">#{companyAddr},</if>
+            <if test="qrCode != null and qrCode != ''">#{qrCode},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBizPersonalCard" parameterType="BizPersonalCard">
+        update biz_personal_card
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="position != null and position != ''">position = #{position},</if>
+            <if test="telephone != null and telephone != ''">telephone = #{telephone},</if>
+            <if test="mail != null and mail != ''">mail = #{mail},</if>
+            <if test="wechatAccount != null and wechatAccount != ''">wechat_account = #{wechatAccount},</if>
+            <if test="companyAddr != null and companyAddr != ''">company_addr = #{companyAddr},</if>
+            <if test="qrCode != null and qrCode != ''">qr_code = #{qrCode},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBizPersonalCardById" parameterType="Long">
+        delete from biz_personal_card where id = #{id}
+    </delete>
+
+    <delete id="deleteBizPersonalCardByIds" parameterType="String">
+        delete from biz_personal_card where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
