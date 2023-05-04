@@ -98,4 +98,8 @@ ruoyi:
     addressEnabled: false
     # 验证码类型 math 数组计算 char 字符验证
     captchaType: math
+    # 管理后台拼接域名
+    adminDomain: http://cms.raysko.com:8088
+    # 官网等开放访问时拼接的域名
+    openDomain: https://www.raysko.com
 
