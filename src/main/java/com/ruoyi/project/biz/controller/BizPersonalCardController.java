@@ -3,6 +3,7 @@ package com.ruoyi.project.biz.controller;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.framework.aspectj.lang.annotation.Log;
 import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
+import com.ruoyi.framework.config.RuoYiConfig;
 import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.framework.web.page.TableDataInfo;
@@ -31,6 +32,9 @@ public class BizPersonalCardController extends BaseController {
     @Resource
     private IBizPersonalCardService bizPersonalCardService;
 
+    @Resource
+    RuoYiConfig ruoYiConfig;
+
     /**
      * 查询业务-个人名片列表
      */
@@ -40,6 +44,9 @@ public class BizPersonalCardController extends BaseController {
     public TableDataInfo list(BizPersonalCard bizPersonalCard) {
         startPage();
         List<BizPersonalCard> list = bizPersonalCardService.selectBizPersonalCardList(bizPersonalCard);
+        if (list != null && list.size() > 0){
+            list.forEach(s -> s.setQrCode(ruoYiConfig.getAdminDomain() + s.getQrCode()));
+        }
         return getDataTable(list);
     }
 
