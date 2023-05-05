@@ -63,6 +63,7 @@
     <insert id="insertBizPersonalCard" parameterType="BizPersonalCard" useGeneratedKeys="true" keyProperty="id">
         insert into biz_personal_card
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
             <if test="createTime != null">create_time,</if>
             <if test="createBy != null and createBy != ''">create_by,</if>
             <if test="updateTime != null">update_time,</if>
@@ -79,6 +80,7 @@
             <if test="delFlag != null and delFlag != ''">del_flag,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="createBy != null and createBy != ''">#{createBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
