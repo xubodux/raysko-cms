@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 业务-个人名片对象 biz_personal_card
  *
@@ -18,6 +20,7 @@ public class BizPersonalCard extends BaseEntity {
     /**
      * 名片ID
      */
+    @NotNull(message = "ID必填")
     private Long id;
 
     /**

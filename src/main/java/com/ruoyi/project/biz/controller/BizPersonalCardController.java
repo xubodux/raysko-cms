@@ -76,7 +76,7 @@ public class BizPersonalCardController extends BaseController {
     @ApiOperation("修改名片")
     @Log(title = "业务-个人名片", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
-    public AjaxResult editSave(@RequestBody BizPersonalCard bizPersonalCard) {
+    public AjaxResult editSave(@Validated @RequestBody BizPersonalCard bizPersonalCard) {
         return toAjax(bizPersonalCardService.updateBizPersonalCard(bizPersonalCard));
     }
 
