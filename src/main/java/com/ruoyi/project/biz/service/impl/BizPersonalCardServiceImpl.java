@@ -4,6 +4,8 @@ import com.ruoyi.common.constant.HttpStatus;
 import com.ruoyi.common.core.text.Convert;
 import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.framework.config.RuoYiConfig;
 import com.ruoyi.project.biz.domain.BizPersonalCard;
 import com.ruoyi.project.biz.mapper.BizPersonalCardMapper;
 import com.ruoyi.project.biz.service.IBizPersonalCardService;
@@ -23,6 +25,9 @@ import java.util.stream.Collectors;
 public class BizPersonalCardServiceImpl implements IBizPersonalCardService {
     @Resource
     private BizPersonalCardMapper bizPersonalCardMapper;
+
+    @Resource
+    private RuoYiConfig ruoYiConfig;
 
     /**
      * 查询业务-个人名片
@@ -88,6 +93,10 @@ public class BizPersonalCardServiceImpl implements IBizPersonalCardService {
     @Override
     public int updateBizPersonalCard(BizPersonalCard bizPersonalCard) {
         bizPersonalCard.setUpdateTime(DateUtils.getNowDate());
+        //修改时如果url是完整带域名的，去掉前面的域名
+        if (StringUtils.isNotEmpty(bizPersonalCard.getQrCode()) && bizPersonalCard.getQrCode().contains(ruoYiConfig.getAdminDomain())){
+            bizPersonalCard.setQrCode(bizPersonalCard.getQrCode().replace(ruoYiConfig.getAdminDomain(), ""));
+        }
         return bizPersonalCardMapper.updateBizPersonalCard(bizPersonalCard);
     }
 
