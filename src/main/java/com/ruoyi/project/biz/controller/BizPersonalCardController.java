@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class BizPersonalCardController extends BaseController {
     public TableDataInfo list(BizPersonalCard bizPersonalCard) {
         startPage();
         List<BizPersonalCard> list = bizPersonalCardService.selectBizPersonalCardList(bizPersonalCard);
-        if (list != null && list.size() > 0){
+        if (list != null && list.size() > 0) {
             list.forEach(s -> s.setQrCode(ruoYiConfig.getAdminDomain() + s.getQrCode()));
         }
         return getDataTable(list);
@@ -78,7 +79,7 @@ public class BizPersonalCardController extends BaseController {
     @ApiOperation("修改名片")
     @Log(title = "业务-个人名片", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
-    public AjaxResult editSave(BizPersonalCard bizPersonalCard) {
+    public AjaxResult editSave(@RequestBody BizPersonalCard bizPersonalCard) {
         return toAjax(bizPersonalCardService.updateBizPersonalCard(bizPersonalCard));
     }
 
