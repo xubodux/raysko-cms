@@ -1,5 +1,6 @@
 package com.ruoyi.project.biz.controller;
 
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.config.RuoYiConfig;
 import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.project.biz.domain.BizPersonalCard;
@@ -26,7 +27,12 @@ public class OfficialWebsiteOpenController extends BaseController {
     @GetMapping("/id_card/{id}")
     public Object getContentConfig(@PathVariable("id") String id) {
         BizPersonalCard bizPersonalCard = bizPersonalCardService.selectBizPersonalCardById(Long.parseLong(id));
-        bizPersonalCard.setQrCode(ruoYiConfig.getOpenDomain() + bizPersonalCard.getQrCode());
+        if (StringUtils.isNotEmpty(bizPersonalCard.getQrCode())){
+            bizPersonalCard.setQrCode(ruoYiConfig.getOpenDomain() + bizPersonalCard.getQrCode());
+        }
+        if (StringUtils.isNotEmpty(bizPersonalCard.getAvatar())){
+            bizPersonalCard.setAvatar(ruoYiConfig.getOpenDomain() + bizPersonalCard.getAvatar());
+        }
         return success(bizPersonalCard);
     }
 

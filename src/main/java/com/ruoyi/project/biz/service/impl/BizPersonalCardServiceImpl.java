@@ -48,7 +48,19 @@ public class BizPersonalCardServiceImpl implements IBizPersonalCardService {
      */
     @Override
     public List<BizPersonalCard> selectBizPersonalCardList(BizPersonalCard bizPersonalCard) {
-        return bizPersonalCardMapper.selectBizPersonalCardList(bizPersonalCard);
+        List<BizPersonalCard> list = bizPersonalCardMapper.selectBizPersonalCardList(bizPersonalCard);
+        // 处理名片二维码和头像的url地址
+        if (list != null && list.size() > 0) {
+            list.forEach(s -> {
+                if (StringUtils.isNotEmpty(s.getQrCode())){
+                    s.setQrCode(ruoYiConfig.getAdminDomain() + s.getQrCode());
+                }
+                if (StringUtils.isNotEmpty(s.getAvatar())){
+                    s.setAvatar(ruoYiConfig.getAdminDomain() + s.getAvatar());
+                }
+            });
+        }
+        return list;
     }
 
     /**
@@ -96,6 +108,9 @@ public class BizPersonalCardServiceImpl implements IBizPersonalCardService {
         //修改时如果url是完整带域名的，去掉前面的域名
         if (StringUtils.isNotEmpty(bizPersonalCard.getQrCode()) && bizPersonalCard.getQrCode().contains(ruoYiConfig.getAdminDomain())){
             bizPersonalCard.setQrCode(bizPersonalCard.getQrCode().replace(ruoYiConfig.getAdminDomain(), ""));
+        }
+        if (StringUtils.isNotEmpty(bizPersonalCard.getAvatar()) && bizPersonalCard.getAvatar().contains(ruoYiConfig.getAdminDomain())){
+            bizPersonalCard.setAvatar(bizPersonalCard.getAvatar().replace(ruoYiConfig.getAdminDomain(), ""));
         }
         return bizPersonalCardMapper.updateBizPersonalCard(bizPersonalCard);
     }

@@ -81,6 +81,18 @@ public class BizPersonalCard extends BaseEntity {
      */
     private String delFlag;
 
+    @Excel(name = "头像地址")
+    @ApiModelProperty("头像地址")
+    private String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -176,6 +188,7 @@ public class BizPersonalCard extends BaseEntity {
                 .append("wechatAccount", getWechatAccount())
                 .append("companyAddr", getCompanyAddr())
                 .append("qrCode", getQrCode())
+                .append("avatar", getAvatar())
                 .append("remark", getRemark())
                 .append("status", getStatus())
                 .append("delFlag", getDelFlag())

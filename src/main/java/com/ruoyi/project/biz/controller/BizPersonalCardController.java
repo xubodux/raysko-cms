@@ -45,9 +45,6 @@ public class BizPersonalCardController extends BaseController {
     public TableDataInfo list(BizPersonalCard bizPersonalCard) {
         startPage();
         List<BizPersonalCard> list = bizPersonalCardService.selectBizPersonalCardList(bizPersonalCard);
-        if (list != null && list.size() > 0) {
-            list.forEach(s -> s.setQrCode(ruoYiConfig.getAdminDomain() + s.getQrCode()));
-        }
         return getDataTable(list);
     }
 
